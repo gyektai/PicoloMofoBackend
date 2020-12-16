@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = '=w8a_ybi!$box9w_gfx23q8i0bufzs0u)lit@$dtilr3^w#=xy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gyektai.pythonanywhere.com/']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -43,7 +44,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', 
+    'corsheaders.middleware.CorsMiddleware', #added to solve CORS
+    'django.middleware.common.CommonMiddleware', #added to solve CORS
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,10 +57,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pic_backend.urls'
 
+REACT_APP_DIR = os.path.join('/Users/gideonyektai/Workspace/PicoloMofo/', 'picolo')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [REACT_APP_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,6 +127,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CORS_ORIGIN_WHITELIST =[
-    'https://localhost:3000'
-    ]
+
+STATICFILES_DIR = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
