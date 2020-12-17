@@ -16,7 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.conf.urls import url
+
 from custom_deck import views
+from custom_deck.views import FrontendAppView
 
 router = routers.DefaultRouter()
 router.register(r'cards', views.CardView, 'card')
@@ -24,5 +27,6 @@ router.register(r'decks', views.DeckView, 'deck')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    url(r'^', FrontendAppView.as_view())
 ]

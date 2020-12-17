@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['gyektai.pythonanywhere.com']
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,10 +58,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pic_backend.urls'
 
+REACT_APP_DIR = os.path.join('/Users/gideonyektai/Workspace/PicoloMofo/', 'picolo')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [REACT_APP_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,6 +128,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 CORS_ORIGIN_WHITELIST =[
     'https://picolomofo.com',
     ]
+
+
+STATICFILES_DIR = [
+    os.path.join(REACT_APP_DIR, 'build', 'static'),
+]
+
